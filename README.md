@@ -1,4 +1,4 @@
 # sld-visualization-presentation
-source code for reveal.js presentation about SLD visualization
+source code for reveal.js presentation about usage of graphQL wihtint Mint
 
-See the presentation [here](http://bertbruynooghe.github.io/sld-visualization-presentation)
+See the presentation [here](http://bertbruynooghe.github.io/greaphql-presentation)
