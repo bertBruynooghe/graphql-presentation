@@ -41,12 +41,7 @@
                 ### fields
                 #### query
                 ```
-                query {
-                  Plant {
-                    plant_id
-                    name
-                  }
-                }
+                query getAllPlants { Plant { plant_id, name } }
                 ```
                 ### schema
                 ```
@@ -59,61 +54,9 @@
         </section>
         <section data-markdown>
             <textarea data-template>
-                ### arguments
-                ```
-                query {
-                  Plant (name: "Buchtenstraat") {
-                    plant_id
-                  }
-                }
-                ```
-                ### extended
-                ```
-                query {
-                  Plant (filter: { name_starts_with: "Bucht" }) {
-                    plant_id
-                  }
-                }
-                ```
-            </textarea>
-        </section>
-        <section data-markdown>
-          <textarea data-template>
-            ### alias
-            ```
-            query {
-              Plant (name: "Buchtenstraat"){
-                grids { producers { producers { producers {_id} } } }
-              }
-              _357376: ElectricalComponent (_id: "357376") { _id, producers { _id } }
-              _357396: ElectricalComponent (_id: "357396") { _id, producers {_id } }
-            }
-            ```
-            ### fragments
-            ```
-            query {
-              Plant (name: "Buchtenstraat"){
-                grids { producers { producers { producers {_id} } } }
-              }
-              _357376: ElectricalComponent (_id: "357376") { ...componentFields }
-              _357396: ElectricalComponent (_id: "357396") { ...componentFields }
-            }
-            fragment componentFields on ElectricalComponent {
-              _id
-              producers { _id }
-            }
-            ```
-          </textarea>
-        </section>
-        <section data-markdown>
-            <textarea data-template>
                 ### relations
                 ```
-                query {
-                  Plant {
-                    grids { grid_id }
-                  }
-                }
+                { Plant { grids { grid_id } } }
                 ```
                 ### schema
                 ```
@@ -125,6 +68,58 @@
                 }
                 ```
             </textarea>
+        </section>
+        <section data-markdown>
+            <textarea data-template>
+                ### arguments
+                ```
+                { Plant (name: "Buchtenstraat") { plant_id } }
+                ```
+                ### backed by graphql-neo4j
+                ```
+                { Plant (filter: { name_starts_with: "Bucht" }) { plant_id } }
+                ```
+            </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### nested
+            ```
+            Plant (name: "Buchtenstraat"){
+              grids { producers { producers { producers {_id} } } }
+            }
+            ```
+            ### alias
+            ```
+            {
+              _357376: ElectricalComponent (_id: "357376") {
+                _id, producers { _id }
+              }
+              _357396: ElectricalComponent (_id: "357396") {
+                _id, producers {_id }
+              }
+            }
+            ```
+          </textarea>
+        </section>
+        <section data-markdown>
+          <textarea data-template>
+            ### fragments
+            ```
+            {
+              _357376: ElectricalComponent (_id: "357376") {
+                ...componentFields
+              }
+              _357396: ElectricalComponent (_id: "357396") {
+                ...componentFields
+              }
+            }
+            fragment componentFields on ElectricalComponent {
+              _id
+              producers { _id }
+            }
+            ```
+          </textarea>
         </section>
       </div>
     </div>
